@@ -8,6 +8,17 @@ package modelo;
  *
  * @author kevin
  */
-public class Habitacion {
+public abstract class Habitacion {
+    private String numero;
     
+    public Habitacion(String numero){
+       this.numero = numero; 
+    }
+    
+    public String getNumero(){
+        return this.numero;
+    }
+    
+    public abstract int getCapacidad();
+    public abstract long getTarifa();
 }

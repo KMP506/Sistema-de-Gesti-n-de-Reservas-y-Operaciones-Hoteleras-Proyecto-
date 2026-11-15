@@ -8,6 +8,19 @@ package modelo;
  *
  * @author kevin
  */
-public class HabitacionFamiliar {
+public class HabitacionFamiliar extends Habitacion {
+
+    public HabitacionFamiliar(String numero) {
+        super(numero);
+    }
     
+    @Override
+    public int getCapacidad(){
+        return 4;
+    }
+    
+    @Override
+    public long getTarifa(){
+        return 65000;
+    }
 }
