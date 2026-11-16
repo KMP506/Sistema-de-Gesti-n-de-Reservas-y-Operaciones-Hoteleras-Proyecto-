@@ -23,6 +23,9 @@ public class Reserva {
     private Recepcionista recepcionista;
     
     public Reserva(String codigo, Huesped huesped, Habitacion habitacion, int cantidadPersonas, LocalDate fechaEntrada, LocalDate fechaSalida, Recepcionista recepcionista){
+       validarDatos(codigo, huesped, habitacion,
+                cantidadPersonas, fechaEntrada,
+                fechaSalida, recepcionista);
         this.codigo = codigo;
         this.huesped = huesped;
         this.habitacion = habitacion;
@@ -37,6 +40,40 @@ public class Reserva {
         calcularNoches();
         this.importeTotal = cantidadNoches * habitacion.getTarifa();
     }
+    
+     private void validarDatos(String codigo, Huesped huesped,Habitacion habitacion, int cantidadPersonas,LocalDate fechaEntrada, LocalDate fechaSalida,Recepcionista recepcionista) {
+         
+        if (codigo == null || codigo.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "El código es obligatorio.");
+        }
+        if (huesped == null || habitacion == null
+                || recepcionista == null) {
+            throw new IllegalArgumentException(
+                    "Debe seleccionar huésped, habitación y recepcionista.");
+        }
+        if (fechaEntrada == null || fechaSalida == null) {
+            throw new IllegalArgumentException(
+                    "Las fechas son obligatorias.");
+        }
+        if (fechaEntrada.isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException(
+                    "La fecha de entrada no puede ser anterior a hoy.");
+        }
+        if (!fechaSalida.isAfter(fechaEntrada)) {
+            throw new IllegalArgumentException(
+                    "La fecha de salida debe ser posterior a la entrada.");
+        }
+        if (cantidadPersonas <= 0) {
+            throw new IllegalArgumentException(
+                    "La cantidad de personas debe ser mayor que cero.");
+        }
+        if (cantidadPersonas > habitacion.getCapacidad()) {
+            throw new IllegalArgumentException(
+                    "La cantidad de personas supera la capacidad de la habitación.");
+        }
+    }
+    
     public void calcularNoches(){
         cantidadNoches = 0;
         LocalDate fecha = fechaEntrada;
@@ -69,6 +106,10 @@ public class Reserva {
     
     public long getCantidadNoches(){
         return cantidadNoches;
+    }
+    
+    public long getImporteTotal(){
+        return importeTotal;
     }
     
     public EstadoReserva getEstado(){

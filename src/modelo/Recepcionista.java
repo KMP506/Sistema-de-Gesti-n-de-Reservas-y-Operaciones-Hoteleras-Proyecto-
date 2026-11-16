@@ -9,5 +9,24 @@ package modelo;
  * @author kevin
  */
 public class Recepcionista {
+    private String usuario;
+    private String contraseña;
     
+    public Recepcionista(String usuario, String contraseña) {
+        this.usuario = usuario;
+        this.contraseña = contraseña;
+    }
+    
+    public String getUsuario(){
+        return usuario;
+    }
+    
+    public String getContraseña(){
+        return contraseña;
+    }
+    
+    @Override
+    public String toString(){
+        return usuario;
+    }
 }

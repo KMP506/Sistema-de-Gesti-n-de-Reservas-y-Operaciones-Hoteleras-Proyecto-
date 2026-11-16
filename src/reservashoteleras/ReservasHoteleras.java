@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package reservashoteleras;
-
+import javax.swing.SwingUtilities;
+import vista.FrmLogin;
 /**
  *
  * @author kevin
@@ -14,7 +15,14 @@ public class ReservasHoteleras {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        SwingUtilities.invokeLater(() -> {
+
+            FrmLogin login = new FrmLogin();
+            login.setLocationRelativeTo(null);
+            login.setVisible(true);
+
+        });
     }
   
 }
