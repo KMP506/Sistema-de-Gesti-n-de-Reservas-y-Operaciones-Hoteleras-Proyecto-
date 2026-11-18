@@ -34,7 +34,6 @@ public class Reserva {
         this.fechaSalida = fechaSalida;
         this.recepcionista = recepcionista;
         this.fechaSalidaReal = null;
-        this.fechaSalidaReal = null;
         this.estado = EstadoReserva.CONFIRMADA;
         this.cantidadNoches = 0;
         calcularNoches();
@@ -120,7 +119,7 @@ public class Reserva {
         return recepcionista;
     }
     
-    public void realiarCheckIn(){
+    public void realizarCheckIn(){
         if (estado == EstadoReserva.CONFIRMADA && fechaEntrada.equals(LocalDate.now())){
             estado = EstadoReserva.HOSPEDADO;
         }else{

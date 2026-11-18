@@ -221,7 +221,7 @@ public final class GestorHotel {
 
         RegistroReserva registro = exigirReserva(codigo);
 
-        registro.reserva.realiarCheckIn();
+        registro.reserva.realizarCheckIn();
     }
 
     public synchronized void realizarCheckOut(String codigo) {
@@ -357,13 +357,21 @@ public final class GestorHotel {
     }
 
     private ResumenReserva crearResumen(RegistroReserva registro) {
-
-        Reserva r = registro.reserva;
-
-        return new ResumenReserva( r.getCodigo(), registro.idHuesped,
-                r.getHabitacion().getNumero(), r.getCantidadPersonas(),
-                registro.entrada, registro.salida,
-                r.getFechaSalidaReal(),r.getEstado(),registro.importe,registro.usuarioRegistro);
+            Reserva r = registro.reserva;
+            return new ResumenReserva(    
+            r.getCodigo(),
+            registro.idHuesped,
+            r.getHabitacion().getNumero(),
+            r.getCantidadPersonas(),
+            registro.entrada,
+            registro.salida,
+            r.getFechaSalidaReal(),
+            r.getEstado(),
+            registro.importe,
+            registro.usuarioRegistro,
+            r.getHuesped().getNombreCompleto(),
+            r.getCantidadNoches()
+    );
     }
 
     private static final class RegistroReserva {
@@ -391,31 +399,37 @@ public final class GestorHotel {
         private final String codigo;
         private final String idHuesped;
         private final String numeroHabitacion;
-        private final String usuarioRegistro;
-
         private final int cantidadPersonas;
-
         private final LocalDate fechaEntrada;
         private final LocalDate fechaSalida;
         private final LocalDate fechaSalidaReal;
-
         private final EstadoReserva estado;
         private final long importe;
+        private final String usuarioRegistro;
+        private final String nombreHuesped;
+        private final long cantidadNoches;
 
-        ResumenReserva( String codigo, String idHuesped,String numeroHabitacion, int cantidadPersonas, LocalDate fechaEntrada,
-                LocalDate fechaSalida, LocalDate fechaSalidaReal, EstadoReserva estado,long importe, String usuarioRegistro) {
-
-            this.codigo = codigo;
-            this.idHuesped = idHuesped;
-            this.numeroHabitacion = numeroHabitacion;
-            this.cantidadPersonas = cantidadPersonas;
-            this.fechaEntrada = fechaEntrada;
-            this.fechaSalida = fechaSalida;
-            this.fechaSalidaReal = fechaSalidaReal;
-            this.estado = estado;
-            this.importe = importe;
-            this.usuarioRegistro = usuarioRegistro;
+        
+        ResumenReserva(String codigo, String idHuesped,
+             String numeroHabitacion, int cantidadPersonas,
+             LocalDate fechaEntrada, LocalDate fechaSalida,
+             LocalDate fechaSalidaReal, EstadoReserva estado,
+             long importe, String usuarioRegistro,
+             String nombreHuesped, long cantidadNoches) {
+             this.codigo = codigo;
+             this.idHuesped = idHuesped;
+             this.numeroHabitacion = numeroHabitacion;
+             this.cantidadPersonas = cantidadPersonas;
+             this.fechaEntrada = fechaEntrada;
+             this.fechaSalida = fechaSalida;
+             this.fechaSalidaReal = fechaSalidaReal;
+             this.estado = estado;
+             this.importe = importe;
+             this.usuarioRegistro = usuarioRegistro;
+             this.nombreHuesped = nombreHuesped;
+             this.cantidadNoches = cantidadNoches;
         }
+
 
         public String getCodigo() {
             return codigo;
@@ -455,6 +469,14 @@ public final class GestorHotel {
 
         public String getUsuarioRegistro() {
             return usuarioRegistro;
+        }
+        
+        public String getNombreHuesped() {
+            return nombreHuesped;
+        }
+
+        public long getCantidadNoches() {
+            return cantidadNoches;
         }
     }
 

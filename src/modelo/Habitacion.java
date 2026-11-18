@@ -21,4 +21,9 @@ public abstract class Habitacion {
     
     public abstract int getCapacidad();
     public abstract long getTarifa();
+    
+    @Override
+    public String toString() {
+        return numero;
+    }
 }

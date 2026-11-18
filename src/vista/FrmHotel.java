@@ -5,6 +5,10 @@
 package vista;
 import modelo.GestorHotel;
 import modelo.IndicadoresHotel;
+import controlador.HuespedControlador;
+import controlador.HabitacionesControlador;
+import controlador.ReservaControlador;
+import controlador.LoginControlador;
 
 /**
  *
@@ -75,10 +79,11 @@ public class FrmHotel extends javax.swing.JFrame {
     }
 
     public void volverALogin() {
-
         dispose();
-
-        new FrmLogin().setVisible(true);
+        FrmLogin login = new FrmLogin();
+        new LoginControlador(login);
+        login.setLocationRelativeTo(null);
+        login.setVisible(true);
     }
 
     private static final java.util.logging.Logger logger =
@@ -512,7 +517,9 @@ public class FrmHotel extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCambiarUsuarioActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        abrirPanel("Huéspedes", new PanelHuespedes());
+    PanelHuespedes panel = new PanelHuespedes();
+    new HuespedControlador(panel);
+    abrirPanel("Huéspedes", panel);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -520,11 +527,15 @@ public class FrmHotel extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        abrirPanel("Habitaciones", new PanelHabitaciones());
+    PanelHabitaciones panel = new PanelHabitaciones();
+    new HabitacionesControlador(panel);
+    abrirPanel("Habitaciones", panel);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        abrirPanel("Reservas", new PanelReservas());
+    PanelReservas panel = new PanelReservas();
+    new ReservaControlador(panel);
+    abrirPanel("Reservas", panel);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
