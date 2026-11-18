@@ -4,6 +4,7 @@
  */
 package reservashoteleras;
 import javax.swing.SwingUtilities;
+import controlador.LoginControlador;
 import vista.FrmLogin;
 /**
  *
@@ -19,6 +20,7 @@ public class ReservasHoteleras {
         SwingUtilities.invokeLater(() -> {
 
             FrmLogin login = new FrmLogin();
+            new LoginControlador(login);
             login.setLocationRelativeTo(null);
             login.setVisible(true);
 

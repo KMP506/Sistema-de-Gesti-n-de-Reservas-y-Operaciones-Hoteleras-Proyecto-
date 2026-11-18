@@ -21,6 +21,7 @@ public class HuespedControlador {
 
         vista.getBtnRegistrar().addActionListener(
                 e -> registrarHuesped());
+        vista.getBtnLimpiar().addActionListener(e -> vista.limpiarCampos());
 
         actualizarTabla();
     }

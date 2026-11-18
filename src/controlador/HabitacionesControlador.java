@@ -21,8 +21,10 @@ public class HabitacionesControlador {
         this.vista = vista;
         this.gestor = GestorHotel.getInstancia();
         vista.getBtnRegistrar().addActionListener( e -> registrarHabitacion());
+        vista.getBtnLimpiar().addActionListener(e -> vista.limpiarCampos());
         vista.getCmbTipo().addActionListener( e -> actualizarTipo());
         actualizarTabla();
+        actualizarTipo();
     }
 
     private void registrarHabitacion() {
