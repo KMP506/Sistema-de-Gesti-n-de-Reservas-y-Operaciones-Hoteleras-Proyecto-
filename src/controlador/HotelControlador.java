@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package controlador;
+
 import hilos.ActualizadorIndicadores;
 import hilos.SupervisorReservas;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -12,7 +13,6 @@ import javax.swing.SwingUtilities;
 import modelo.GestorHotel;
 import modelo.IndicadoresHotel;
 import vista.FrmHotel;
-import vista.PanelInicio;
 /**
  *
  * @author matam
@@ -20,120 +20,94 @@ import vista.PanelInicio;
 public class HotelControlador {
 
     private final GestorHotel gestor = GestorHotel.getInstancia();
-
     private final FrmHotel ventana;
-    private final PanelInicio inicio;
 
-    private final AtomicBoolean procesosActivos =
-            new AtomicBoolean(false);
+    private final AtomicBoolean procesosActivos =new AtomicBoolean(false);
 
-    public HotelControlador(FrmHotel ventana, PanelInicio inicio) {
+    public HotelControlador(FrmHotel ventana) {
         this.ventana = ventana;
-        this.inicio = inicio;
     }
 
     public void cargarSesion() {
 
         if (gestor.getUsuarioActivo() != null) {
 
-            int cambiadas = gestor.revisarVencimientosReales();
+            int cantidad = gestor.revisarVencimientosReales();
 
-            System.out.println(
-                    "[Inicio de sesión] Revisión de vencimientos realizada. Cambios: "
-                    + cambiadas);
-
-            inicio.mostrarMensaje(
-                    "Revisión inicial completada: "
-                    + cambiadas + " reserva(s) vencida(s).");
+            ventana.mostrarMensaje( "Revisión realizada: " + cantidad+ " reserva(s) vencida(s).");
 
         } else {
 
-            inicio.mostrarMensaje(
-                    "Sin sesión activa. El inicio de sesión lo integra Persona 1.");
+            ventana.mostrarMensaje( "Sin sesión activa. Inicia sesión desde FrmLogin.");
         }
 
-        inicio.mostrarIndicadores(gestor.calcularIndicadores());
+        actualizarIndicadores();
     }
 
     public void actualizarIndicadores() {
-        inicio.mostrarIndicadores(gestor.calcularIndicadores());
+
+        ventana.mostrarIndicadores(
+                gestor.calcularIndicadores());
     }
 
     public void iniciarProcesos() {
 
         if (!procesosActivos.compareAndSet(false, true)) {
 
-            JOptionPane.showMessageDialog(
-                    ventana, "Ya hay una supervisión en ejecución.");
+            JOptionPane.showMessageDialog( ventana, "Los procesos ya están en ejecución.");
 
             return;
         }
 
-        inicio.setProcesosEnCurso(true);
+        ventana.setProcesosEnCurso(true);
 
-        inicio.mostrarMensaje(
-                "Dos hilos iniciados: cinco ciclos simultáneos.");
+        ventana.mostrarMensaje( "Ejecutando supervisión e indicadores...");
 
         AtomicInteger pendientes = new AtomicInteger(2);
 
-        Runnable terminar = () -> {
+        Runnable alTerminar = () -> {
 
             if (pendientes.decrementAndGet() == 0) {
 
-                IndicadoresHotel finales =
-                        gestor.calcularIndicadores();
+                IndicadoresHotel resultadoFinal = gestor.calcularIndicadores();
 
                 SwingUtilities.invokeLater(() -> {
 
-                    inicio.mostrarIndicadores(finales);
+                    ventana.mostrarIndicadores(resultadoFinal);
 
-                    ventana.refrescarPanelesOperativos();
+                    ventana.setProcesosEnCurso(false);
 
-                    inicio.setProcesosEnCurso(false);
-
-                    inicio.mostrarMensaje(
-                            "Supervisión finalizada. Indicadores consolidados.");
+                    ventana.mostrarMensaje("Procesos finalizados. Indicadores actualizados.");
 
                     procesosActivos.set(false);
                 });
             }
         };
 
-        Thread supervisor = new Thread(
-                new SupervisorReservas(gestor, terminar),
-                "SupervisorReservas");
+        Thread hilo1 = new Thread( new SupervisorReservas(gestor, alTerminar),"SupervisorReservas");
 
-        Thread actualizador = new Thread(
-                new ActualizadorIndicadores(
-                        gestor, inicio::mostrarIndicadores, terminar),
-                "ActualizadorIndicadores");
+        Thread hilo2 = new Thread(
+                new ActualizadorIndicadores(gestor,ventana::mostrarIndicadores,alTerminar),"ActualizadorIndicadores");
 
-        supervisor.start();
-
-        actualizador.start();
+        hilo1.start();
+        hilo2.start();
     }
 
     public void cambiarUsuario() {
 
         if (procesosActivos.get()) {
 
-            JOptionPane.showMessageDialog(
-                    ventana,
-                    "Termine la supervisión antes de cambiar de usuario.");
+            JOptionPane.showMessageDialog(ventana,"Espera a que finalicen los procesos.");
 
             return;
         }
 
-        int opcion = JOptionPane.showConfirmDialog(
-                ventana,
-                "¿Deseas cerrar la sesión actual y cambiar de recepcionista?",
-                "Cambiar usuario",
-                JOptionPane.YES_NO_OPTION);
+        int opcion = JOptionPane.showConfirmDialog(ventana,
+                "¿Deseas cerrar la sesión actual?","Cambiar usuario",JOptionPane.YES_NO_OPTION);
 
         if (opcion == JOptionPane.YES_OPTION) {
 
             gestor.cerrarSesion();
-
             ventana.volverALogin();
         }
     }

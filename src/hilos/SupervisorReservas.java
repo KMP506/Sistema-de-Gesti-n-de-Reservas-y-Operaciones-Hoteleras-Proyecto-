@@ -37,9 +37,7 @@ public class SupervisorReservas implements Runnable {
 
                 int cambiadas = gestor.revisarVencimientosReales();
 
-                log("Ciclo " + ciclo
-                        + "/5: reservas vencidas actualizadas = "
-                        + cambiadas);
+                log("Ciclo " + ciclo + "/5: reservas vencidas actualizadas = "+ cambiadas);
 
                 if (ciclo < 5) {
                     Thread.sleep(1000);
@@ -68,11 +66,8 @@ public class SupervisorReservas implements Runnable {
 
     private void log(String mensaje) {
 
-        System.out.printf(
-                "[%s] [%s] %s%n",
-                LocalTime.now().format(
-                        DateTimeFormatter.ofPattern("HH:mm:ss")),
-                Thread.currentThread().getName(),
-                mensaje);
+        System.out.printf( "[%s] [%s] %s%n",
+                LocalTime.now().format( DateTimeFormatter.ofPattern("HH:mm:ss")),
+                Thread.currentThread().getName(),mensaje);
     }
 }

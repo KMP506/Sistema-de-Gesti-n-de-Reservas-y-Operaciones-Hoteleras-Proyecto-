@@ -15,14 +15,10 @@ import modelo.HabitacionIndividual;
 public class HabitacionFactory {
     public static Habitacion crearHabitacion(String tipo, String numero){
         switch(tipo){
-            case "Individual":
-                return new HabitacionIndividual(numero);
-            case "Doble":
-                return new HabitacionDoble(numero);
-            case "Familiar":
-                return new HabitacionFamiliar(numero);
-            default:
-                throw new IllegalArgumentException("Tipo de habitacion no valida..");
+            case "Individual": return new HabitacionIndividual(numero);
+            case "Doble": return new HabitacionDoble(numero);
+            case "Familiar": return new HabitacionFamiliar(numero);
+            default: throw new IllegalArgumentException("Tipo de habitacion no valida..");
         }
     }
 }

@@ -14,9 +14,85 @@ public class PanelCheckInOut extends javax.swing.JPanel {
      * Creates new form PanelCheckInOut
      */
     public PanelCheckInOut() {
+        
         initComponents();
+        txtCodigo.setText("");
+        prepararTabla();
+        actualizarTabla();
+    }
+        private final controlador.CheckInOutControlador controlador =
+        new controlador.CheckInOutControlador();
+
+    private javax.swing.table.DefaultTableModel modeloTabla;
+
+    private void prepararTabla() {
+        modeloTabla = new javax.swing.table.DefaultTableModel(new Object[]{
+                "Código", "Huésped", "Habitación", "Entrada", "Salida", "Estado", "Salida real"}, 0) {
+            @Override
+            public boolean isCellEditable(int fila, int columna) {
+                return false;
+            }
+        };
+
+        tablaReservas.setModel(modeloTabla);
+        tablaReservas.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tablaReservas.setSelectionMode( javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tablaReservas.getSelectionModel().addListSelectionListener(e -> {
+
+            if (!e.getValueIsAdjusting()&& tablaReservas.getSelectedRow() >= 0) {
+
+            int fila = tablaReservas.convertRowIndexToModel(tablaReservas.getSelectedRow());
+
+                txtCodigo.setText( modeloTabla.getValueAt(fila, 0).toString());
+            }
+        });
     }
 
+    public void actualizarTabla() {
+
+        modeloTabla.setRowCount(0);
+
+        for (modelo.GestorHotel.ResumenReserva reserva : controlador.consultarReservas()) {
+
+                modeloTabla.addRow(new Object[]{  reserva.getCodigo(),
+                reserva.getIdHuesped(),reserva.getNumeroHabitacion(),
+                reserva.getFechaEntrada(), reserva.getFechaSalida(),
+            reserva.getEstado(),reserva.getFechaSalidaReal() == null
+                    ? "Sin registrar": reserva.getFechaSalidaReal()
+            });
+        }
+    }
+
+    private void procesarOperacion(boolean esCheckIn) {
+
+        String codigo = txtCodigo.getText().trim();
+
+    if (codigo.isEmpty()) {
+
+        javax.swing.JOptionPane.showMessageDialog(this, "Debe indicar el código de reserva.");
+
+        return;
+    }
+
+    try {
+
+        if (esCheckIn) {
+            controlador.hacerCheckIn(codigo);
+        } else {
+            controlador.hacerCheckOut(codigo);
+        }
+
+        actualizarTabla();
+
+        javax.swing.JOptionPane.showMessageDialog(this, esCheckIn
+                        ? "Check-in realizado correctamente.": "Check-out realizado correctamente.");
+
+    } catch (IllegalArgumentException| IllegalStateException ex) {
+
+        javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(),
+                "Operación no permitida",javax.swing.JOptionPane.WARNING_MESSAGE);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,19 +102,173 @@ public class PanelCheckInOut extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
+        btnActualizar = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaReservas = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        btnCheckIn = new javax.swing.JButton();
+        btnCheckOut = new javax.swing.JButton();
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setText("Buscar reserva");
+
+        jLabel3.setText("Código de reserva");
+
+        txtCodigo.setText("R0001");
+
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(this::btnActualizarActionPerformed);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnActualizar)
+                        .addGap(38, 38, 38))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(47, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setText("Reservas registradas");
+
+        tablaReservas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Código", "	Habitación", "Estado"
+            }
+        ));
+        jScrollPane1.setViewportView(tablaReservas);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
+        );
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Check-in / Check-out");
+
+        btnCheckIn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCheckIn.setText("Realizar Check-in");
+        btnCheckIn.addActionListener(this::btnCheckInActionPerformed);
+
+        btnCheckOut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCheckOut.setText("Realizar Check-out");
+        btnCheckOut.addActionListener(this::btnCheckOutActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(11, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(btnCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCheckOut)
+                .addGap(35, 35, 35))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCheckIn)
+                    .addComponent(btnCheckOut))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        actualizarTabla();
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckInActionPerformed
+        procesarOperacion(true);
+    }//GEN-LAST:event_btnCheckInActionPerformed
+
+    private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
+        procesarOperacion(false);
+    }//GEN-LAST:event_btnCheckOutActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnCheckIn;
+    private javax.swing.JButton btnCheckOut;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tablaReservas;
+    private javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables
 }
