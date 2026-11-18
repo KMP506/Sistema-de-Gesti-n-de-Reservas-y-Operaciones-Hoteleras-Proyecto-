@@ -21,10 +21,8 @@ public class ActualizadorIndicadores implements Runnable {
 
     private final Runnable alTerminar;
 
-    public ActualizadorIndicadores(
-            GestorHotel gestor,
-            Consumer<IndicadoresHotel> actualizarVista,
-            Runnable alTerminar) {
+    public ActualizadorIndicadores(GestorHotel gestor,
+            Consumer<IndicadoresHotel> actualizarVista, Runnable alTerminar) {
 
         this.gestor = gestor;
         this.actualizarVista = actualizarVista;
@@ -44,16 +42,13 @@ public class ActualizadorIndicadores implements Runnable {
                     break;
                 }
 
-                IndicadoresHotel indicadores =
-                        gestor.calcularIndicadores();
+                IndicadoresHotel indicadores =gestor.calcularIndicadores();
 
-                log("Ciclo " + ciclo
-                        + "/5: indicadores actualizados.");
+                log("Ciclo " + ciclo+ "/5: indicadores actualizados.");
 
                 if (actualizarVista != null) {
 
-                    SwingUtilities.invokeLater(
-                            () -> actualizarVista.accept(indicadores));
+                    SwingUtilities.invokeLater( () -> actualizarVista.accept(indicadores));
                 }
 
                 if (ciclo < 5) {
@@ -83,11 +78,8 @@ public class ActualizadorIndicadores implements Runnable {
 
     private void log(String mensaje) {
 
-        System.out.printf(
-                "[%s] [%s] %s%n",
-                LocalTime.now().format(
-                        DateTimeFormatter.ofPattern("HH:mm:ss")),
-                Thread.currentThread().getName(),
-                mensaje);
+        System.out.printf("[%s] [%s] %s%n",
+                LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")),
+                Thread.currentThread().getName(),mensaje);
     }
 }
