@@ -41,11 +41,11 @@ public class FrmLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hotel - Iniciar Secion");
-        setBackground(new java.awt.Color(0, 51, 153));
+        setBackground(new java.awt.Color(0, 0, 204));
         setForeground(new java.awt.Color(0, 51, 204));
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(231, 236, 236));
+        jPanel1.setBackground(new java.awt.Color(102, 204, 255));
 
         lblHotel.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lblHotel.setForeground(new java.awt.Color(0, 0, 102));
@@ -60,7 +60,7 @@ public class FrmLogin extends javax.swing.JFrame {
         txtUsuario.setToolTipText("");
         txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btnIniciarSecion.setBackground(new java.awt.Color(0, 51, 153));
+        btnIniciarSecion.setBackground(new java.awt.Color(0, 0, 204));
         btnIniciarSecion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnIniciarSecion.setForeground(new java.awt.Color(255, 255, 255));
         btnIniciarSecion.setText("Iniciar sesión");

@@ -30,8 +30,8 @@ public class PanelReservas extends javax.swing.JPanel {
     txtEstado.setEditable(false);
     txtCodigo.setText("Automático");
     txtEstado.setText("Confirmada");
-    tblReservas.setModel(new DefaultTableModel(new Object[][]{},new String[]{"Código", "Habitación", "Entrada","Salida", "Estado"
-            }
+    tblReservas.setModel(new DefaultTableModel(new Object[][]{},new String[]{"Código", "Habitación", "Entrada","Salida", "Estado", "Huésped","Personas", "Salida real", "Noches","Importe", "Recepcionista"
+}
     ) {
         @Override
         public boolean isCellEditable(int fila, int columna) {
@@ -77,66 +77,83 @@ public class PanelReservas extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
 
+        jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        lblCodigo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblCodigo.setText("Código:");
 
+        lblHuesped.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblHuesped.setText("Huésped:");
 
         txtCodigo.setEditable(false);
 
+        lblHabitacion.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblHabitacion.setText("Habitación:");
 
+        lblPersonas.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblPersonas.setText("Personas:");
 
         txtCantidadPersonas.addActionListener(this::txtCantidadPersonasActionPerformed);
 
+        lblEntrada.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblEntrada.setText("Fecha de entrrada:");
 
         txtFechaEntrada.setToolTipText("AAAA-MM-DD");
         txtFechaEntrada.addActionListener(this::txtFechaEntradaActionPerformed);
 
+        lblSalida.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblSalida.setText("Fecha de salida:");
 
         txtFechaSalida.setToolTipText("AAAA-MM-DD");
 
+        lblNoches.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblNoches.setText("Noches:");
 
         txtNoches.setEditable(false);
 
+        lblImporte.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblImporte.setText("Importe total:");
 
         txtImporte.setEditable(false);
 
+        lblRecepcionista.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblRecepcionista.setText("Recepcionista:");
 
         txtRecepcionista.setEditable(false);
 
+        lblEstado.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblEstado.setText("Estado:");
 
         txtEstado.setEditable(false);
         txtEstado.setText("Confirmada");
 
+        btnRegistrar.setBackground(new java.awt.Color(0, 0, 204));
+        btnRegistrar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText("Registrar");
 
+        btnLimpiar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnLimpiar.setForeground(new java.awt.Color(0, 0, 102));
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(this::btnLimpiarActionPerformed);
 
         tblReservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Habitación", "Entrada", "Salida", "Estado"
+                "Código", "Habitación", "Entrada", "Salida", "Estado", "Huésped", "Personas", "Salida real", "Noches", "Importe", "Recepcionista"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -180,12 +197,12 @@ public class PanelReservas extends javax.swing.JPanel {
                     .addComponent(txtEstado))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,12 +252,14 @@ public class PanelReservas extends javax.swing.JPanel {
                     .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
         );
 
+        jPanel2.setBackground(new java.awt.Color(0, 0, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        lblTitulo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("Registro de Reservas");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -283,6 +302,10 @@ public class PanelReservas extends javax.swing.JPanel {
     private void txtFechaEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaEntradaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFechaEntradaActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
 
     public JComboBox<Huesped> getCmbHuesped() {
@@ -355,20 +378,22 @@ public class PanelReservas extends javax.swing.JPanel {
         txtCantidadPersonas.requestFocus();
     }
 
-    public void actualizarTabla(
-            List<GestorHotel.ResumenReserva> reservas) {
-        DefaultTableModel modelo =(DefaultTableModel) tblReservas.getModel();
-        modelo.setRowCount(0);
-        for (GestorHotel.ResumenReserva reserva : reservas) {
-            modelo.addRow(new Object[]{
-                reserva.getCodigo(),
-                reserva.getNumeroHabitacion(),
-                reserva.getFechaEntrada().toString(),
-                reserva.getFechaSalida().toString(),
-                reserva.getEstado().toString()
-            });
+    
+public void actualizarTabla(
+        List<GestorHotel.ResumenReserva> reservas) {
+    DefaultTableModel modelo = (DefaultTableModel) tblReservas.getModel();
+    modelo.setRowCount(0);
+    for (GestorHotel.ResumenReserva reserva : reservas) {
+        String salidaReal = "—";
+        if (reserva.getFechaSalidaReal() != null) {
+            salidaReal = reserva.getFechaSalidaReal().toString();
         }
+        modelo.addRow(new Object[]{
+            reserva.getCodigo(),reserva.getNumeroHabitacion(),reserva.getFechaEntrada().toString(),reserva.getFechaSalida().toString(),reserva.getEstado().toString(),reserva.getNombreHuesped(),reserva.getCantidadPersonas(),salidaReal,reserva.getCantidadNoches(),"₡" + reserva.getImporte(),reserva.getUsuarioRegistro()
+        });
     }
+}
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

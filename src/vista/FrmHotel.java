@@ -42,7 +42,8 @@ public class FrmHotel extends javax.swing.JFrame {
 
         ventana.setContentPane(panel);
 
-        ventana.setSize(900, 600);
+        ventana.pack();
+        ventana.setResizable(false);
 
         ventana.setLocationRelativeTo(this);
 

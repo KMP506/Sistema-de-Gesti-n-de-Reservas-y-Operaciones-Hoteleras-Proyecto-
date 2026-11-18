@@ -59,7 +59,7 @@ public class PanelHuespedes extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
 
-        jPanel1.setBackground(new java.awt.Color(231, 236, 236));
+        jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblIdentificacion.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -74,8 +74,9 @@ public class PanelHuespedes extends javax.swing.JPanel {
         lblCorreo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblCorreo.setText("Correo electrónico:");
 
-        btnRegistrar.setBackground(new java.awt.Color(0, 51, 153));
+        btnRegistrar.setBackground(new java.awt.Color(0, 0, 204));
         btnRegistrar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText("Registrar");
 
         btnLimpiar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -110,12 +111,6 @@ public class PanelHuespedes extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnLimpiar)
-                .addGap(110, 110, 110))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,7 +126,12 @@ public class PanelHuespedes extends javax.swing.JPanel {
                             .addComponent(txtIdentificacion)
                             .addComponent(txtNombre)
                             .addComponent(txtTelefono)
-                            .addComponent(txtCorreo))))
+                            .addComponent(txtCorreo)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnLimpiar)
+                                .addGap(104, 104, 104)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -162,10 +162,11 @@ public class PanelHuespedes extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel2.setBackground(new java.awt.Color(0, 51, 153));
+        jPanel2.setBackground(new java.awt.Color(0, 0, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblTitulo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("Registro de Huespedes");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
