@@ -57,7 +57,8 @@ public class PanelSimulacion extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Simulación de vencimientos");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel1.setBackground(new java.awt.Color(102, 204, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Consultar reservas por fecha futura");
@@ -67,7 +68,9 @@ public class PanelSimulacion extends javax.swing.JPanel {
         txtFecha.setText("2026-11-24");
         txtFecha.addActionListener(this::txtFechaActionPerformed);
 
+        btnSimular.setBackground(new java.awt.Color(0, 51, 255));
         btnSimular.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSimular.setForeground(new java.awt.Color(255, 255, 255));
         btnSimular.setText("Simular");
         btnSimular.addActionListener(this::btnSimularActionPerformed);
 
@@ -101,7 +104,8 @@ public class PanelSimulacion extends javax.swing.JPanel {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel2.setBackground(new java.awt.Color(102, 204, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Resultados de simulación");

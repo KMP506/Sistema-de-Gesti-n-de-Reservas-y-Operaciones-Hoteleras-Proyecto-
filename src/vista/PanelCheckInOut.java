@@ -115,7 +115,8 @@ public class PanelCheckInOut extends javax.swing.JPanel {
         btnCheckIn = new javax.swing.JButton();
         btnCheckOut = new javax.swing.JButton();
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel1.setBackground(new java.awt.Color(102, 204, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Buscar reserva");
@@ -124,6 +125,9 @@ public class PanelCheckInOut extends javax.swing.JPanel {
 
         txtCodigo.setText("R0001");
 
+        btnActualizar.setBackground(new java.awt.Color(0, 51, 255));
+        btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(this::btnActualizarActionPerformed);
 
@@ -159,7 +163,8 @@ public class PanelCheckInOut extends javax.swing.JPanel {
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel2.setBackground(new java.awt.Color(102, 204, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Reservas registradas");
@@ -201,11 +206,15 @@ public class PanelCheckInOut extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Check-in / Check-out");
 
+        btnCheckIn.setBackground(new java.awt.Color(0, 51, 255));
         btnCheckIn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCheckIn.setForeground(new java.awt.Color(255, 255, 255));
         btnCheckIn.setText("Realizar Check-in");
         btnCheckIn.addActionListener(this::btnCheckInActionPerformed);
 
+        btnCheckOut.setBackground(new java.awt.Color(0, 51, 255));
         btnCheckOut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCheckOut.setForeground(new java.awt.Color(255, 255, 255));
         btnCheckOut.setText("Realizar Check-out");
         btnCheckOut.addActionListener(this::btnCheckOutActionPerformed);
 
